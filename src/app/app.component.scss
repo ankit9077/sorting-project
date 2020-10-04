@@ -1,0 +1,40 @@
+.disable {
+  pointer-events: none;
+  cursor: none;
+  opacity: 0.5;
+}
+
+.choice {
+  height: 50px;
+  padding: 5px;
+
+  .btn {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.bars {
+  padding-left: 1px;
+  padding-right: 1px;
+  width: 10px;
+  height: 100%;
+  align-items: center;
+  display: inline-block;
+
+  .text {
+      font-size: 12px;
+  }
+
+  .default {
+    background-color: #D4F362;
+  }
+
+  .active {
+    background-color: #FF5733;
+  }
+
+  .iterate {
+    background-color: #62BEF3;
+  }
+}
