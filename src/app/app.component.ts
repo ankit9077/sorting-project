@@ -96,17 +96,33 @@ export class AppComponent implements OnInit {
 
   // QUICK SORT FUNCTION BELOW
 
+  InitQuickSort() {
+    this.isSorting = true;
+    this.QuickSort().then((response) => {
+      this.isSorting = false;
+    });
+  }
+
   QuickSort(low = 0, high = this.Values.length - 1) {
-    if (low < high) {
-      setTimeout(() => {
-        this.partition(high, low - 1, low).then((pi: number) => {
-          pi++;
-          this.selectedIndex = pi;
-          this.QuickSort(low, pi - 1);
-          this.QuickSort(pi + 1, high);
-        });
-      }, 500);
-    }
+    // tslint:disable-next-line: no-shadowed-variable
+    return new Promise((resolve, reject) => {
+      if (low < high) {
+        setTimeout(() => {
+          this.partition(high, low - 1, low).then((pi: number) => {
+            pi++;
+            this.selectedIndex = pi;
+            Promise.all([this.QuickSort(low, pi - 1), this.QuickSort(pi + 1, high)]).then(
+              (responses: Array<any>) => {
+                if (!responses[0] && !responses[1]) {
+                  resolve(false);
+                }
+              });
+          });
+        }, 500);
+      } else {
+        resolve(false);
+      }
+    });
   }
 
   partition(high: number, index: number, jIndex: number) {
